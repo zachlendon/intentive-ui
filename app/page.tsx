@@ -86,12 +86,18 @@ export default function Home() {
           <div className="container mx-auto max-w-3xl px-4">
             <h2 className="text-3xl font-bold mb-8 text-center">Quick Start</h2>
             <div className="bg-gray-900 text-white p-6 rounded-lg shadow-lg overflow-x-auto relative">
-              <CodeCopy code={`# install\nnpm i intentive\n# query\nnpx intentive run examples/hello.intent`} />
+              <CodeCopy code={`# ⚡ 15-Second Start\ngit clone https://github.com/agenticaivc/intentive.git && \\\ncd intentive && pnpm install && \\\nnpm run payroll:demo\n\n# Expected: 🎉 Payroll success!\n\n# 🚀 API Testing\nnpm run gateway:dev &\ncurl -X POST http://localhost:4000/intent -H "Content-Type: application/json" -d '{"ask":"Test"}'`} />
               <pre className="font-mono text-sm">
-                <code>{`# install
-npm i intentive
-# query
-npx intentive run examples/hello.intent`}</code>
+                <code>{`# ⚡ 15-Second Start
+git clone https://github.com/agenticaivc/intentive.git && \\
+cd intentive && pnpm install && \\
+npm run payroll:demo
+
+# Expected: 🎉 Payroll success!
+
+# 🚀 API Testing
+npm run gateway:dev &
+curl -X POST http://localhost:4000/intent -H "Content-Type: application/json" -d '{"ask":"Test"}'`}</code>
               </pre>
             </div>
           </div>
