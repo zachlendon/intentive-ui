@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run build:docs && next build",
+    "build": "npm run build:docs:conditional && next build",
     "build:docs": "cd ../intentive/packages/docs-website && npm run build && cp -r build/* ../../../intentive-ui/public/static/docs/",
     "build:docs:dev": "cd ../intentive/packages/docs-website && npm run build && rm -rf ../../../intentive-ui/public/static/docs && cp -r build ../../../intentive-ui/public/static/docs",
+    "build:docs:conditional": "if [ -d \"../intentive/packages/docs-website\" ]; then npm run build:docs; else echo \"Sibling intentive project not found, skipping docs build. This is normal for deployments.\" && node scripts/build-docs-fallback.js; fi",
     "start": "next start",
     "lint": "next lint",
     "dev:with-docs": "npm run build:docs:dev && next dev"

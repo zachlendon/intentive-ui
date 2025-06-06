@@ -9,6 +9,7 @@ This is the main marketing and landing site for Intentive, built with Next.js 15
 - **Unified Design System** with consistent theming across marketing and docs
 - **Dark/Light Mode** support
 - **Responsive Design** with Tailwind CSS
+- **Smart Deployment** with automatic fallback when docs aren't available
 
 ## Documentation Integration
 
@@ -16,10 +17,11 @@ This project integrates the Docusaurus documentation site from the sibling `inte
 
 ### How it works
 
-1. **Build Process**: The Docusaurus site is built and copied to `public/docs-static/`
+1. **Build Process**: The Docusaurus site is built and copied to `public/static/docs/`
 2. **Routing**: Next.js rewrites handle `/docs/*` routes to serve the static documentation
 3. **Theming**: Custom CSS ensures the documentation matches the main site's design system
 4. **Navigation**: Unified header with seamless navigation between marketing and docs
+5. **Smart Fallback**: If the sibling project isn't available (e.g., on Vercel), a fallback docs page is created
 
 ### Development
 
@@ -37,14 +39,22 @@ npm run build:docs:dev
 ### Production Build
 
 ```bash
-# Full production build (includes docs)
+# Full production build (includes docs if available)
 npm run build
 ```
 
 The production build automatically:
-1. Builds the Docusaurus documentation
-2. Copies it to the public directory
-3. Builds the Next.js application
+1. Checks if the sibling `intentive` project exists
+2. If available: Builds the Docusaurus documentation and copies it
+3. If not available: Creates a helpful fallback page with links to GitHub
+4. Builds the Next.js application
+
+### Deployment
+
+This setup works seamlessly with **Vercel**, **Netlify**, and other platforms:
+
+- **With sibling project** (local development): Full docs integration
+- **Without sibling project** (deployments): Graceful fallback with helpful links
 
 ### Project Structure
 
@@ -52,12 +62,15 @@ The production build automatically:
 intentive-ui/
 ├── app/                    # Next.js app directory
 ├── components/             # React components
+├── scripts/                # Build helper scripts
+│   └── build-docs-fallback.js
 ├── public/
-│   └── docs-static/       # Generated docs (gitignored)
+│   └── static/
+│       └── docs/          # Generated docs (gitignored)
 ├── package.json
 └── next.config.mjs        # Includes docs rewrites
 
-../intentive/packages/docs-website/  # Sibling Docusaurus project
+../intentive/packages/docs-website/  # Sibling Docusaurus project (optional)
 ```
 
 ## Tech Stack
